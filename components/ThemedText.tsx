@@ -1,62 +1,67 @@
 import { fonts } from '@/constants/fonts';
-import { Text, type TextProps, StyleSheet } from 'react-native';
+import { useMemo } from 'react';
+import {
+  Text,
+  type TextProps,
+  StyleSheet,
+  StyleProp,
+  TextStyle,
+} from 'react-native';
 
 export type ThemedTextProps = TextProps & {
-  lightColor?: string;
-  darkColor?: string;
-  type?: 'default' | 'title' | 'defaultBold' | 'subtitle' | 'titleExtra';
+  type?:
+    | 'default'
+    | 'title'
+    | 'defaultBold'
+    | 'subtitle'
+    | 'titleExtra'
+    | 'defaultSubtitle';
 };
 
 export function ThemedText({
   style,
-  lightColor,
-  darkColor,
   type = 'default',
   ...rest
 }: ThemedTextProps) {
-  return (
-    <Text
-      style={[
-        type === 'default' ? styles.default : undefined,
-        type === 'titleExtra' ? styles.titleExtra : undefined,
-        type === 'title' ? styles.title : undefined,
-        type === 'defaultBold' ? styles.defaultBold : undefined,
-        type === 'subtitle' ? styles.subtitle : undefined,
-        style,
-      ]}
-      {...rest}
-    />
-  );
+  const combinedStyle: StyleProp<TextStyle> = useMemo(() => {
+    return StyleSheet.flatten([styles[type], style]);
+  }, [style, type]);
+  return <Text style={combinedStyle} {...rest} />;
 }
 
 const styles = StyleSheet.create({
   default: {
     fontSize: 14,
     lineHeight: 14,
-    fontFamily: fonts.regular
+    fontFamily: fonts.regular,
   },
   defaultBold: {
     fontSize: 14,
     lineHeight: 14,
     fontWeight: '700',
-    fontFamily: fonts.bold
+    fontFamily: fonts.bold,
   },
   titleExtra: {
     fontSize: 36,
     fontWeight: '800',
     lineHeight: 45,
-    fontFamily: fonts.extrabold
+    fontFamily: fonts.extrabold,
   },
   title: {
     fontSize: 24,
     fontWeight: '800',
     lineHeight: 30,
-    fontFamily: fonts.extrabold
+    fontFamily: fonts.extrabold,
+  },
+  defaultSubtitle: {
+    fontSize: 18,
+    lineHeight: 27,
+    fontFamily: fonts.regular,
   },
   subtitle: {
     fontSize: 18,
     fontWeight: '700',
     lineHeight: 27,
-    fontFamily: fonts.bold
+    fontFamily: fonts.bold,
   },
 });

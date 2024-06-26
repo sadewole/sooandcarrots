@@ -2,15 +2,18 @@ import React from 'react';
 import { View, StyleSheet, ImageBackground } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Button } from '@/components/Button/Button';
-import { Colors } from '@/constants/Colors';
+import { colors } from '@/constants/colors';
 import LoginIcon from '@/assets/svgs/login.svg';
 import MailIcon from '@/assets/svgs/mail.svg';
 import ChevronIcon from '@/assets/svgs/chevron-right-circle.svg';
 import { ThemedText } from '@/components/ThemedText';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useRouter } from 'expo-router';
 
 const Home = () => {
+  const router = useRouter();
   const { top, bottom } = useSafeAreaInsets();
+
   return (
     <ImageBackground
       source={require('@/assets/images/home-bg.png')}
@@ -31,11 +34,12 @@ const Home = () => {
             iconLeft={<LoginIcon />}
             iconRight={<ChevronIcon />}
             title='Sign up for free'
+            onPress={() => router.push('/home')}
           />
 
           <Button
             buttonStyle={{
-              backgroundColor: Colors.darkenBlue,
+              backgroundColor: colors.darkenBlue,
               marginTop: 16,
             }}
             iconLeft={<MailIcon />}

@@ -1,4 +1,3 @@
-import { Colors } from '@/constants/Colors';
 import React from 'react';
 import {
   TouchableOpacity,
@@ -9,6 +8,7 @@ import {
   ViewStyle,
   View,
 } from 'react-native';
+import { colors } from '@/constants/colors';
 import { ThemedText } from '../ThemedText';
 
 export type ButtonProps = {
@@ -40,12 +40,12 @@ export const Button = ({
       activeOpacity={0.8}
     >
       <View style={styles.contentContainer}>
-        {iconLeft && <View style={{marginLeft: 16}}>{iconLeft}</View>}
+        {iconLeft && <View style={{ marginLeft: 16 }}>{iconLeft}</View>}
         {hasChildren ? (
           children
         ) : (
           <ThemedText
-          type='defaultBold'
+            type='defaultBold'
             style={[
               styles.text,
               !hasIcon && { textAlign: 'center' },
@@ -63,7 +63,7 @@ export const Button = ({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.paleBlue,
+    backgroundColor: colors.paleBlue,
     borderRadius: 100,
     height: 52,
     justifyContent: 'center',

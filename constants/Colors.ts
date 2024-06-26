@@ -4,8 +4,9 @@
  */
 
 
-export const Colors = {
+export const colors = {
   paleBlue: '#253BFF',
   darkenBlue: '#1D2939',
   white: '#fff',
+  black: '#000'
 };
