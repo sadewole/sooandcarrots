@@ -1,19 +1,23 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Slot } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import Constants from 'expo-constants';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { View } from 'react-native';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
+function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    JakartaSans: require('../assets/fonts/PlusJakartaSans-Regular.ttf'),
+    JakartaSansMedium: require('../assets/fonts/PlusJakartaSans-Medium.ttf'),
+    JakartaSansSemiBold: require('../assets/fonts/PlusJakartaSans-SemiBold.ttf'),
+    JakartaSansBold: require('../assets/fonts/PlusJakartaSans-Bold.ttf'),
+    JakartaSansExtraBold: require('../assets/fonts/PlusJakartaSans-ExtraBold.ttf'),
   });
 
   useEffect(() => {
@@ -26,12 +30,21 @@ export default function RootLayout() {
     return null;
   }
 
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
-  );
+  return <Slot />;
 }
+
+let EntryPoint = RootLayout;
+
+if (Constants.expoConfig?.extra?.storybookEnabled) {
+  const StorybookUI = require('../.storybook').default;
+  EntryPoint = () => {
+    SplashScreen.hideAsync();
+    return (
+      <View style={{ flex: 1 }}>
+        <StorybookUI />
+      </View>
+    );
+  };
+}
+
+export default EntryPoint;

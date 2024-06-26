@@ -1,11 +1,10 @@
+import { fonts } from '@/constants/fonts';
 import { Text, type TextProps, StyleSheet } from 'react-native';
-
-import { useThemeColor } from '@/hooks/useThemeColor';
 
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
+  type?: 'default' | 'title' | 'defaultBold' | 'subtitle' | 'titleExtra';
 };
 
 export function ThemedText({
@@ -15,17 +14,14 @@ export function ThemedText({
   type = 'default',
   ...rest
 }: ThemedTextProps) {
-  const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
-
   return (
     <Text
       style={[
-        { color },
         type === 'default' ? styles.default : undefined,
+        type === 'titleExtra' ? styles.titleExtra : undefined,
         type === 'title' ? styles.title : undefined,
-        type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
+        type === 'defaultBold' ? styles.defaultBold : undefined,
         type === 'subtitle' ? styles.subtitle : undefined,
-        type === 'link' ? styles.link : undefined,
         style,
       ]}
       {...rest}
@@ -35,26 +31,32 @@ export function ThemedText({
 
 const styles = StyleSheet.create({
   default: {
-    fontSize: 16,
-    lineHeight: 24,
+    fontSize: 14,
+    lineHeight: 14,
+    fontFamily: fonts.regular
   },
-  defaultSemiBold: {
-    fontSize: 16,
-    lineHeight: 24,
-    fontWeight: '600',
+  defaultBold: {
+    fontSize: 14,
+    lineHeight: 14,
+    fontWeight: '700',
+    fontFamily: fonts.bold
+  },
+  titleExtra: {
+    fontSize: 36,
+    fontWeight: '800',
+    lineHeight: 45,
+    fontFamily: fonts.extrabold
   },
   title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    lineHeight: 32,
+    fontSize: 24,
+    fontWeight: '800',
+    lineHeight: 30,
+    fontFamily: fonts.extrabold
   },
   subtitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  link: {
-    lineHeight: 30,
-    fontSize: 16,
-    color: '#0a7ea4',
+    fontSize: 18,
+    fontWeight: '700',
+    lineHeight: 27,
+    fontFamily: fonts.bold
   },
 });
