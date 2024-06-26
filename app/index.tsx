@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, ImageBackground } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Button } from '@/components/Button/Button';
+import { Button } from '@/components/button/Button';
 import { colors } from '@/constants/colors';
 import LoginIcon from '@/assets/svgs/login.svg';
 import MailIcon from '@/assets/svgs/mail.svg';
@@ -34,17 +34,18 @@ const Home = () => {
             iconLeft={<LoginIcon />}
             iconRight={<ChevronIcon />}
             title='Sign up for free'
-            onPress={() => router.push('/home')}
+            onPress={() => router.push('/signup')}
           />
 
           <Button
             buttonStyle={{
-              backgroundColor: colors.darkenBlue,
+              backgroundColor: colors.gray800,
               marginTop: 16,
             }}
             iconLeft={<MailIcon />}
             title='Continue with Email'
             iconRight={<ChevronIcon />}
+            onPress={() => router.push('/home')}
           />
         </View>
       </View>

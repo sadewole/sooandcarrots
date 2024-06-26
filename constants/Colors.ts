@@ -6,7 +6,12 @@
 
 export const colors = {
   paleBlue: '#253BFF',
-  darkenBlue: '#1D2939',
+  gray800: '#1D2939',
+  gray600:'#475467',
+  gray500:'#667085',
+  gray300:'#D0D5DD',
+  gray50: '#F9FAFB',
   white: '#fff',
-  black: '#000'
+  black: '#000',
+  red500: '#FF2323',
 };

@@ -1,8 +1,8 @@
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import { Card } from '@/components/Card.tsx/Card';
+import { Card } from '@/components/card/Card';
 import { ThemedText } from '@/components/ThemedText';
-import { Button } from '@/components/Button/Button';
+import { Button } from '@/components/button/Button';
 import { colors } from '@/constants/colors';
 import StarIcon from '@/assets/svgs/star.svg';
 import CloseIcon from '@/assets/svgs/close-circle.svg';
