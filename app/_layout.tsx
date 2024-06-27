@@ -4,7 +4,6 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 import Constants from 'expo-constants';
-
 import { View } from 'react-native';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -12,7 +11,6 @@ SplashScreen.preventAutoHideAsync();
 
 function RootLayout() {
   const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     JakartaSans: require('../assets/fonts/PlusJakartaSans-Regular.ttf'),
     JakartaSansMedium: require('../assets/fonts/PlusJakartaSans-Medium.ttf'),
     JakartaSansSemiBold: require('../assets/fonts/PlusJakartaSans-SemiBold.ttf'),

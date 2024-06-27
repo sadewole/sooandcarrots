@@ -1,16 +1,24 @@
 import { View } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react';
-import { MyButton } from './Button';
 import React from 'react';
+import { Button } from './Button';
+import LoginIcon from '@/assets/svgs/login.svg';
+import { ChevronGo } from '@/components/chevronGo/ChevronGo';
 
-const MyButtonMeta: Meta<typeof MyButton> = {
-  title: 'MyButton',
-  component: MyButton,
+const ButtonMeta: Meta<typeof Button> = {
+  title: 'Button',
+  component: Button,
   argTypes: {
-    onPress: { action: 'pressed the button' },
+    onPress: { action: 'pressed' },
+    title: { control: 'text' },
+    disabled: { control: 'boolean' },
+    titleStyle: { control: 'object' },
+    buttonStyle: { control: 'object' },
+    iconLeft: { control: 'object' },
+    iconRight: { control: 'object' },
   },
   args: {
-    text: 'Hello world',
+    title: 'Click here',
   },
   decorators: [
     (Story) => (
@@ -21,12 +29,27 @@ const MyButtonMeta: Meta<typeof MyButton> = {
   ],
 };
 
-export default MyButtonMeta;
+export default ButtonMeta;
 
-export const Basic: StoryObj<typeof MyButton> = {};
+export const Basic: StoryObj<typeof Button> = {};
 
-export const AnotherExample: StoryObj<typeof MyButton> = {
+export const AnotherExample: StoryObj<typeof Button> = {
   args: {
-    text: 'Another example',
+    title: 'Another example',
+  },
+};
+
+export const WithBothIcons: StoryObj<typeof Button> = {
+  args: {
+    title: 'Sign up for free',
+    iconLeft: <LoginIcon />,
+    iconRight: <ChevronGo />,
+  },
+};
+
+export const Disabled: StoryObj<typeof Button> = {
+  args: {
+    title: 'Sign up for free',
+    disabled: true,
   },
 };
