@@ -5,17 +5,19 @@ import { colors } from '@/constants/colors';
 
 export type ChevronGoProps = {
   borderColor?: string;
+  backgroundColor?: string;
   iconColor?: string;
   direction?: 'right' | 'left';
 };
 
 export const ChevronGo = ({
   borderColor = colors.white,
+  backgroundColor,
   iconColor = colors.white,
   direction = 'right',
 }: ChevronGoProps) => {
   return (
-    <View style={[styles.iconWrapper, { borderColor }]}>
+    <View style={[styles.iconWrapper, { borderColor, backgroundColor }]}>
       <ChevronIcon
         color={iconColor}
         style={direction === 'left' && {transform: [{ rotate: '180deg' }]}}

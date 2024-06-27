@@ -78,7 +78,7 @@ export const PasswordInput = (props: PasswordInputProps) => {
 export const textFieldStyles = StyleSheet.create({
   inputGroup: {
     borderRadius: 16,
-    marginTop: 8,
+    marginVertical: 8,
     backgroundColor: colors.gray50,
   },
   input: {

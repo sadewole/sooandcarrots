@@ -12,20 +12,18 @@ import { fonts } from '@/constants/fonts';
 
 type InputProps = TextInputProps & {
   rightIcon?: React.ReactNode;
-  secureTextEntry?: boolean;
   containerStyle?: ViewStyle;
   rightIconStyle?: ViewStyle;
-  error?: { message: string };
+  errorMessage?: string;
 };
 
 export const Input = (props: InputProps) => {
   const {
-    secureTextEntry,
     rightIcon,
     style,
     containerStyle,
     rightIconStyle,
-    error,
+    errorMessage,
     ...rest
   } = props;
 
@@ -40,9 +38,9 @@ export const Input = (props: InputProps) => {
         {rightIcon && <View>{rightIcon}</View>}
       </View>
 
-      {error && error?.message && (
+      {errorMessage && errorMessage && (
         <ThemedText style={{ color: colors.red500 }}>
-          {error?.message as string}
+          {errorMessage as string}
         </ThemedText>
       )}
     </View>
@@ -54,7 +52,7 @@ export const textFieldStyles = StyleSheet.create({
     borderRadius: 16,
     paddingHorizontal: 16,
     paddingVertical: 18,
-    marginTop: 8,
+    marginVertical: 8,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: colors.gray50,

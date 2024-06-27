@@ -9,25 +9,30 @@ export const Select = ({
   onPress,
   value,
   placeholder = '',
-  error,
+  errorMessage,
 }: {
   placeholder?: string;
   value: string;
   onPress?(): void;
-  error?: { message: string };
+  errorMessage?: string;
 }) => {
   return (
     <View style={{ marginBottom: 8 }}>
       <TouchableOpacity style={[styles.inputWrapper]} onPress={onPress}>
         <View style={styles.input}>
-          <ThemedText style={[styles.valueInput, placeholder ? {color: colors.gray500}: undefined]}>{value || placeholder}</ThemedText>
+          <ThemedText
+            style={[
+              styles.valueInput,
+              placeholder ? { color: colors.gray500 } : undefined,
+            ]}
+          >
+            {value || placeholder}
+          </ThemedText>
         </View>
         <ChevronIcon />
       </TouchableOpacity>
-      {error && (
-        <ThemedText style={{ color: colors.red500 }}>
-          {error.message}
-        </ThemedText>
+      {errorMessage && (
+        <ThemedText style={{ color: colors.red500 }}>{errorMessage}</ThemedText>
       )}
     </View>
   );
@@ -38,7 +43,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     paddingHorizontal: 16,
     paddingVertical: 18,
-    marginTop: 8,
+    marginVertical: 8,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: colors.gray50,
