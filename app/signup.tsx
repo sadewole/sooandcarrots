@@ -37,11 +37,12 @@ const Signup = () => {
     control,
     handleSubmit,
     setValue,
+    setError,
     getValues,
     watch,
     register,
     formState: { errors },
-  } = useForm<FormT>({ mode: 'all' });
+  } = useForm<FormT>({ mode: 'onChange', reValidateMode: 'onChange' });
   register('competition', {
     required: 'You must pick a competition to register',
   });
@@ -240,6 +241,7 @@ const Signup = () => {
         onClose={toggleModal}
         onSelect={(val) => {
           setValue('competition', val.title);
+          setError('competition', { type: 'validate' });
         }}
       />
     </SafeAreaView>
