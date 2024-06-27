@@ -22,8 +22,16 @@ const ButtonMeta: Meta<typeof Button> = {
   },
   decorators: [
     (Story) => (
-      <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
+      <View style={{ justifyContent: 'center', flex: 1 }}>
         <Story />
+        <Story
+          args={{
+            iconLeft: <LoginIcon />,
+            iconRight: <ChevronGo />,
+            title: 'Hello World',
+            buttonStyle: { marginTop: 10 },
+          }}
+        />
       </View>
     ),
   ],
@@ -33,23 +41,12 @@ export default ButtonMeta;
 
 export const Basic: StoryObj<typeof Button> = {};
 
-export const AnotherExample: StoryObj<typeof Button> = {
-  args: {
-    title: 'Another example',
-  },
-};
-
-export const WithBothIcons: StoryObj<typeof Button> = {
-  args: {
-    title: 'Sign up for free',
-    iconLeft: <LoginIcon />,
-    iconRight: <ChevronGo />,
-  },
-};
-
 export const Disabled: StoryObj<typeof Button> = {
   args: {
-    title: 'Sign up for free',
+    title: 'Disabled',
     disabled: true,
+    buttonStyle: {
+      backgroundColor: 'red',
+    },
   },
 };

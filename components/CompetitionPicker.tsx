@@ -12,7 +12,7 @@ import { Input } from './fields/input/Input';
 import { ChevronGo } from './chevronGo/ChevronGo';
 import { colors } from '@/constants/colors';
 import SearchIcon from '@/assets/svgs/search.svg';
-import { ThemedText } from './ThemedText';
+import { ThemedText } from './themedText/ThemedText';
 import { Card } from './card/Card';
 import { data } from '@/constants/mock';
 

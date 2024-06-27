@@ -1,7 +1,7 @@
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { colors } from '@/constants/colors';
-import { ThemedText } from '@/components/ThemedText';
+import { ThemedText } from '@/components/themedText/ThemedText';
 import ChevronIcon from '@/assets/svgs/chevron-down.svg';
 import { fonts } from '@/constants/fonts';
 

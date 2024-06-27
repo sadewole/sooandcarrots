@@ -5,7 +5,7 @@ import { Button } from '@/components/button/Button';
 import { colors } from '@/constants/colors';
 import LoginIcon from '@/assets/svgs/login.svg';
 import MailIcon from '@/assets/svgs/mail.svg';
-import { ThemedText } from '@/components/ThemedText';
+import { ThemedText } from '@/components/themedText/ThemedText';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import { ChevronGo } from '@/components/chevronGo/ChevronGo';

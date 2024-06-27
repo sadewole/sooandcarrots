@@ -6,7 +6,7 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import { ThemedText } from '@/components/ThemedText';
+import { ThemedText } from '@/components/themedText/ThemedText';
 import { ChevronGo } from '@/components/chevronGo/ChevronGo';
 import { colors } from '@/constants/colors';
 import { useRouter } from 'expo-router';

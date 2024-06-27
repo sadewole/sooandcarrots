@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import { colors } from '@/constants/colors';
-import { ThemedText } from '../ThemedText';
+import { ThemedText } from '../themedText/ThemedText';
 
 export type ButtonProps = {
   onPress?: () => void;
@@ -36,7 +36,7 @@ export const Button = ({
 
   return (
     <TouchableOpacity
-      style={[styles.container, buttonStyle, disabled && {opacity: 0.5}]}
+      style={[styles.container, buttonStyle, disabled && { opacity: 0.5 }]}
       onPress={onPress}
       activeOpacity={0.8}
       disabled={disabled}
