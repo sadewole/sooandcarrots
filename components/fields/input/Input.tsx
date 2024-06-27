@@ -2,19 +2,21 @@ import {
   StyleSheet,
   TextInput,
   TextInputProps,
+  TouchableOpacity,
   View,
   ViewStyle,
 } from 'react-native';
 import React from 'react';
 import { colors } from '@/constants/colors';
-import { ThemedText } from '@/components/ThemedText';
+import EyeIcon from '@/assets/svgs/eye.svg';
+import EyeSlashIcon from '@/assets/svgs/eyeSlash.svg';
 import { fonts } from '@/constants/fonts';
 
 type InputProps = TextInputProps & {
   rightIcon?: React.ReactNode;
   containerStyle?: ViewStyle;
   rightIconStyle?: ViewStyle;
-  errorMessage?: string;
+  rounded?: 'full' | 'top' | 'bottom';
 };
 
 export const Input = (props: InputProps) => {
@@ -23,33 +25,33 @@ export const Input = (props: InputProps) => {
     style,
     containerStyle,
     rightIconStyle,
-    errorMessage,
+    rounded = 'full',
+    secureTextEntry,
     ...rest
   } = props;
+  const [showPassword, setShowPassword] = React.useState(!secureTextEntry);
 
   return (
-    <View style={[{ marginBottom: 8 }, style]}>
-      <View style={[textFieldStyles.inputWrapper, containerStyle]}>
-        <TextInput
-          style={[textFieldStyles.input, style]}
-          placeholderTextColor={colors.gray500}
-          {...rest}
-        />
-        {rightIcon && <View>{rightIcon}</View>}
-      </View>
-
-      {errorMessage && errorMessage && (
-        <ThemedText style={{ color: colors.red500 }}>
-          {errorMessage as string}
-        </ThemedText>
-      )}
+    <View style={[styles.inputWrapper, styles[rounded], containerStyle]}>
+      <TextInput
+        style={[styles.input, style]}
+        placeholderTextColor={colors.gray500}
+        secureTextEntry={!showPassword}
+        {...rest}
+      />
+      {secureTextEntry ? (
+        <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+          {showPassword ? <EyeIcon /> : <EyeSlashIcon />}
+        </TouchableOpacity>
+      ) : rightIcon ? (
+        <View>{rightIcon}</View>
+      ) : undefined}
     </View>
   );
 };
 
-export const textFieldStyles = StyleSheet.create({
+export const styles = StyleSheet.create({
   inputWrapper: {
-    borderRadius: 16,
     paddingHorizontal: 16,
     paddingVertical: 18,
     marginVertical: 8,
@@ -58,6 +60,9 @@ export const textFieldStyles = StyleSheet.create({
     backgroundColor: colors.gray50,
     gap: 2.5,
   },
+  full: { borderRadius: 16 },
+  top: { borderTopRightRadius: 16, borderTopLeftRadius: 16 },
+  bottom: { borderBottomEndRadius: 16, borderBottomStartRadius: 16 },
   input: {
     flex: 1,
     fontSize: 16,

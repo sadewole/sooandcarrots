@@ -17,7 +17,7 @@ export const Select = ({
   errorMessage?: string;
 }) => {
   return (
-    <View style={{ marginBottom: 8 }}>
+    <View>
       <TouchableOpacity style={[styles.inputWrapper]} onPress={onPress}>
         <View style={styles.input}>
           <ThemedText

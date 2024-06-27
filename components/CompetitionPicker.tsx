@@ -16,15 +16,22 @@ import { ThemedText } from './ThemedText';
 import { Card } from './card/Card';
 import { data } from '@/constants/mock';
 
-type CompetitionPickerProps = { isVisible: boolean; onClose(): void; onSelect(e: {id:number, title:string}):void };
+type CompetitionPickerProps = {
+  isVisible: boolean;
+  onClose(): void;
+  onSelect(e: { id: number; title: string }): void;
+};
 
 export const CompetitionPicker = ({
   isVisible,
-  onClose,onSelect
+  onClose,
+  onSelect,
 }: CompetitionPickerProps) => {
-  const [query, setQuery] = React.useState('')
+  const [query, setQuery] = React.useState('');
 
-  const filterData = data.filter(item => item.title.toLowerCase().includes(query.toLowerCase()))
+  const filterData = data.filter((item) =>
+    item.title.toLowerCase().includes(query.toLowerCase())
+  );
   return (
     <Modal animationType='slide' transparent visible={isVisible}>
       <SafeAreaView style={styles.container}>
@@ -39,9 +46,8 @@ export const CompetitionPicker = ({
           <Input
             placeholder='Search...'
             rightIcon={<SearchIcon />}
-            style={{ flex: 1, marginBottom: 0 }}
-            containerStyle={{ paddingVertical: 10 }}
-            onChangeText={(text)=>setQuery(text)}
+            containerStyle={{ flex: 1, paddingVertical: 10 }}
+            onChangeText={(text) => setQuery(text)}
           />
         </View>
         <FlatList
@@ -60,10 +66,13 @@ export const CompetitionPicker = ({
           }
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
-            <TouchableOpacity style={{ marginBottom: 10 }} onPress={()=>{
-              onSelect(item);
-              onClose()
-            }}>
+            <TouchableOpacity
+              style={{ marginBottom: 10 }}
+              onPress={() => {
+                onSelect(item);
+                onClose();
+              }}
+            >
               <Card
                 style={{
                   backgroundColor: colors.paleBlue,

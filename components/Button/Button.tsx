@@ -13,6 +13,7 @@ import { ThemedText } from '../ThemedText';
 
 export type ButtonProps = {
   onPress?: () => void;
+  disabled?: boolean;
   children?: React.ReactNode;
   title?: string;
   titleStyle?: StyleProp<TextStyle>;
@@ -23,6 +24,7 @@ export type ButtonProps = {
 
 export const Button = ({
   onPress,
+  disabled,
   title,
   children,
   buttonStyle,
@@ -35,9 +37,10 @@ export const Button = ({
 
   return (
     <TouchableOpacity
-      style={[styles.container, buttonStyle]}
+      style={[styles.container, buttonStyle, disabled && {opacity: 0.5}]}
       onPress={onPress}
       activeOpacity={0.8}
+      disabled={disabled}
     >
       <View style={styles.contentContainer}>
         {iconLeft && <View style={{ marginLeft: 16 }}>{iconLeft}</View>}

@@ -5,10 +5,10 @@ import { Button } from '@/components/button/Button';
 import { colors } from '@/constants/colors';
 import LoginIcon from '@/assets/svgs/login.svg';
 import MailIcon from '@/assets/svgs/mail.svg';
-import ChevronIcon from '@/assets/svgs/chevron-right-circle.svg';
 import { ThemedText } from '@/components/ThemedText';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
+import { ChevronGo } from '@/components/chevronGo/ChevronGo';
 
 const Home = () => {
   const router = useRouter();
@@ -32,7 +32,7 @@ const Home = () => {
         <View style={{ paddingBottom: 40 + bottom }}>
           <Button
             iconLeft={<LoginIcon />}
-            iconRight={<ChevronIcon />}
+            iconRight={<ChevronGo />}
             title='Sign up for free'
             onPress={() => router.push('/signup')}
           />
@@ -44,7 +44,7 @@ const Home = () => {
             }}
             iconLeft={<MailIcon />}
             title='Continue with Email'
-            iconRight={<ChevronIcon />}
+            iconRight={<ChevronGo />}
             onPress={() => router.push('/home')}
           />
         </View>

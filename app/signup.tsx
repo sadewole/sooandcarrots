@@ -12,17 +12,20 @@ import { colors } from '@/constants/colors';
 import { useRouter } from 'expo-router';
 import { Select } from '@/components/fields/select/Select';
 import { Input } from '@/components/fields/input/Input';
-import { PasswordInput } from '@/components/fields/passwordInput/PasswordInput';
 import { Button } from '@/components/button/Button';
 import Checkbox from 'expo-checkbox';
 import { Controller, useForm } from 'react-hook-form';
 import { CompetitionPicker } from '@/components/CompetitionPicker';
+import CheckIcon from '@/assets/svgs/check.svg';
+import { emailRegex, passwordRegex } from '@/constants/utils';
 
 type FormT = {
   email: string;
   firstName: string;
   lastName: string;
   competition: string;
+  password: string;
+  confirmPassword: string;
 };
 
 const Signup = () => {
@@ -35,15 +38,17 @@ const Signup = () => {
     handleSubmit,
     setValue,
     getValues,
+    watch,
     register,
     formState: { errors },
-  } = useForm<FormT>({ mode: 'onChange' });
+  } = useForm<FormT>({ mode: 'all' });
   register('competition', {
     required: 'You must pick a competition to register',
   });
 
   const onSubmit = async (data: FormT) => {
     console.log(data);
+    router.push('/home');
   };
 
   const toggleModal = () => setIsShowModal(!isShowModal);
@@ -69,55 +74,139 @@ const Signup = () => {
             onPress={toggleModal}
             errorMessage={errors.competition?.message}
           />
-          <Controller
-            control={control}
-            rules={{
-              required: 'Email is required',
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: 'Email format is invalid',
-              },
-            }}
-            render={({ field, fieldState: { error } }) => (
-              <Input
-                placeholder='Enter email *'
-                errorMessage={error?.message}
-                onBlur={field.onBlur}
-                onChangeText={field.onChange}
-                value={field.value}
-              />
+          <View>
+            <Controller
+              control={control}
+              rules={{ required: 'Email is required', pattern: emailRegex }}
+              render={({ field }) => (
+                <Input
+                  placeholder='Enter email *'
+                  onBlur={field.onBlur}
+                  onChangeText={field.onChange}
+                  value={field.value}
+                />
+              )}
+              name='email'
+            />
+            {errors.email && (
+              <ThemedText style={{ color: colors.red500 }}>
+                Email format is invalid
+              </ThemedText>
             )}
-            name='email'
-          />
-          <PasswordInput />
-          <Controller
-            control={control}
-            rules={{ required: 'First name is required' }}
-            render={({ field, fieldState: { error } }) => (
-              <Input
-                placeholder='First Name in English *'
-                errorMessage={error?.message}
-                onBlur={field.onBlur}
-                onChangeText={field.onChange}
-                value={field.value}
-              />
+          </View>
+          <View>
+            <Controller
+              control={control}
+              rules={{
+                required: true,
+                minLength: 8,
+                pattern: passwordRegex,
+              }}
+              render={({ field }) => (
+                <Input
+                  placeholder='Enter password *'
+                  onBlur={field.onBlur}
+                  secureTextEntry
+                  onChangeText={field.onChange}
+                  value={field.value}
+                  rounded='top'
+                  containerStyle={{
+                    marginBottom: 0,
+                    borderBottomWidth: StyleSheet.hairlineWidth,
+                    borderColor: colors.gray300,
+                  }}
+                />
+              )}
+              name='password'
+            />
+            <Controller
+              control={control}
+              rules={{
+                required: true,
+                validate: (val) => {
+                  const pass = getValues('password');
+                  return pass === val;
+                },
+              }}
+              render={({ field }) => (
+                <Input
+                  placeholder='Enter confirm password *'
+                  onBlur={field.onBlur}
+                  secureTextEntry
+                  onChangeText={field.onChange}
+                  value={field.value}
+                  rounded='bottom'
+                  containerStyle={{ marginTop: 0 }}
+                />
+              )}
+              name='confirmPassword'
+            />
+
+            {(errors?.password || errors?.confirmPassword) && (
+              <View>
+                <ThemedText style={{ color: colors.red500 }}>
+                  {errors.password?.type !== 'required' &&
+                    errors.password?.type !== 'minLength' && <CheckIcon />}{' '}
+                  At least 8 letters
+                </ThemedText>
+                <ThemedText style={{ color: colors.red500 }}>
+                  {passwordRegex.test(watch('password')) && <CheckIcon />}{' '}
+                  Include at least 3 uppercase letters, lowercase letters,
+                  number, or special letters
+                </ThemedText>
+                <ThemedText style={{ color: colors.red500 }}>
+                  Special letters are only limited to (~`!@#$%^&*()_-+=?)
+                </ThemedText>
+                <ThemedText style={{ color: colors.red500 }}>
+                  {errors.confirmPassword?.type !== 'required' &&
+                    errors.confirmPassword?.type !== 'validate' && (
+                      <CheckIcon />
+                    )}{' '}
+                  New password and Confirm password do not match.
+                </ThemedText>
+              </View>
             )}
-            name='firstName'
-          />
-          <Controller
-            control={control}
-            rules={{ required: 'Last name is required' }}
-            render={({ field, fieldState: { error } }) => (
-              <Input
-                placeholder='Last Name in English *'
-                errorMessage={error?.message}
-                onBlur={field.onBlur}
-                onChangeText={field.onChange}
-                value={field.value}
-              />
+          </View>
+          <View>
+            <Controller
+              control={control}
+              rules={{ required: 'First name is required' }}
+              render={({ field }) => (
+                <Input
+                  placeholder='First Name in English *'
+                  onBlur={field.onBlur}
+                  onChangeText={field.onChange}
+                  value={field.value}
+                />
+              )}
+              name='firstName'
+            />
+            {errors.firstName && (
+              <ThemedText style={{ color: colors.red500 }}>
+                {errors.firstName?.message}
+              </ThemedText>
             )}
-            name='lastName'
-          />
+          </View>
+          <View>
+            <Controller
+              control={control}
+              rules={{ required: 'Last name is required' }}
+              render={({ field }) => (
+                <Input
+                  placeholder='Last Name in English *'
+                  onBlur={field.onBlur}
+                  onChangeText={field.onChange}
+                  value={field.value}
+                />
+              )}
+              name='lastName'
+            />
+            {errors.lastName && (
+              <ThemedText style={{ color: colors.red500 }}>
+                {errors.lastName?.message}
+              </ThemedText>
+            )}
+          </View>
           <View style={{ flexDirection: 'row', gap: 10, marginTop: 8 }}>
             <Checkbox
               style={styles.checkbox}
@@ -141,6 +230,7 @@ const Signup = () => {
             title='Sign Up'
             buttonStyle={{ marginVertical: 30 }}
             onPress={handleSubmit(onSubmit)}
+            disabled={!isChecked}
           />
         </View>
       </ScrollView>
